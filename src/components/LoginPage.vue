@@ -8,29 +8,12 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { useRouter } from "vue-router";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
-import { db } from "../main";
 // import Swal from "sweetalert2";
 
 const router = useRouter();
 const email = ref();
 const pwd = ref();
 const provider = new GoogleAuthProvider();
-
-const menu = ref({
-  nameTH: "",
-  nameEng: "",
-  price: 0,
-  detail: "",
-});
-
-const allMenu = ref([]);
 
 function login() {
   const auth = getAuth();
@@ -39,7 +22,7 @@ function login() {
       // Signed in
       const user = userCredential.user;
       console.log("User : " + user);
-      router.push("about");
+      router.push("mygame");
       // ...
     })
     .catch((error) => {
@@ -79,6 +62,7 @@ function googlelogin() {
       // ...
       console.log("Token : " + token);
       console.log("User : " + user);
+      router.push("mygame");
     })
     .catch((error) => {
       // Handle Errors here.
@@ -93,85 +77,28 @@ function googlelogin() {
       console.log("email :" + email + credential);
     });
 }
-
-async function addUserData() {
-  try {
-    const docRef = await addDoc(collection(db, "foodmenu"), menu.value);
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
-
-async function showMenu() {
-  allMenu.value = [];
-  const querySnapshot = await getDocs(collection(db, "foodmenu"));
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    // allMenu.value.push({ ...doc.data(), id: doc.id });\
-    const myDoc = ref({ id: doc.id, data: doc.data() });
-    console.log(doc.id, " => ", doc.data());
-    // console.log(allMenu.value);
-    console.log(myDoc);
-    allMenu.value.push(myDoc.value);
-  });
-}
-
-async function removeData(foodID) {
-  await deleteDoc(doc(db, "foodmenu", foodID));
-  showMenu();
-}
 </script>
 
 <template>
-  <div>
+  <div class="login">
     Email : <input type="email" placeholder="email" v-model="email" />
     <br />
     Password : <input type="password" name="pwd" id="" v-model="pwd" /> <br />
-    <button @click="login()">Login</button>
+    <div>
+      <button @click="login()">Log in</button>
+    </div>
     <button @click="register()">Register</button>
     <button @click="googlelogin()">Google login</button> <br />
     <br />
   </div>
-
-  <div>
-    Form :
-    <form>
-      ชื่อเมนูไทย :
-      <input type="text" name="" id="" v-model="menu.nameTH" required />
-      <br />
-      ชื่อเมนูEng :
-      <input type="text" name="" id="" v-model="menu.nameEng" required />
-      <br />
-      ราคา : <input type="number" v-model="menu.price" required /> <br />
-      รายละเอียด :
-      <input type="text" name="" id="" v-model="menu.detail" required />
-    </form>
-    <button @click="addUserData()">เพิ่มข้อมูล</button>
-  </div>
-  <br />
-  <div>
-    <button @click="showMenu()">แสดงเมนู</button>
-    <table>
-      <tr>
-        <th>เมนูภาษาไทย</th>
-        <th>MenuEng</th>
-        <th>ราคา</th>
-        <th>รายละเอียด</th>
-      </tr>
-      <tr v-for="(item, index) in allMenu" :key="index">
-        <td>{{ item.data.nameTH }}</td>
-        <td>{{ item.data.nameEng }}</td>
-        <td>{{ item.data.price }}</td>
-        <td>{{ item.data.detail }}</td>
-        <td>
-          <button @click="removeData(item.id)">ลบ</button><br />{{ item.id }}
-        </td>
-      </tr>
-    </table>
-  </div>
-  <br />
-  <div></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.login {
+  margin: 3rem;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+</style>

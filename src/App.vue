@@ -1,29 +1,31 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
-import LoginPage from "./components/LoginPage.vue";
+// import LoginPage from "./components/LoginPage.vue";
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+  <body>
+    <header>
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <div style="text-align: center">
+          <button><RouterLink to="/">Home</RouterLink></button>
+          <button>
+            <RouterLink to="/mygame">My Favorite Game</RouterLink>
+          </button>
+          <button><RouterLink to="/game">AddGame</RouterLink></button>
+        </div>
       </nav>
-      <LoginPage />
-    </div>
-  </header>
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </body>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  background-color: #c9eeff;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 .logo {
@@ -35,7 +37,6 @@ nav {
   width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
 }
 
 nav a.router-link-exact-active {
@@ -79,7 +80,21 @@ nav a:first-of-type {
     font-size: 1rem;
 
     padding: 1rem 0;
-    margin-top: 1rem;
+    margin: 1rem;
   }
+}
+
+body {
+  font-family: "Golos Text", sans-serif;
+  font-family: "Prompt", sans-serif;
+}
+
+button {
+  font: inherit;
+  background: #aa77ff;
+  color: rgb(255, 255, 255);
+  padding: 0.25rem 1rem;
+  border-radius: 5px;
+  margin-left: 4rem;
 }
 </style>
