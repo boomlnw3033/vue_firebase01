@@ -64,7 +64,7 @@ img {
 
 .game {
   margin-top: 0.25rem;
-  padding: 0.10rem;
+  padding: 0.1rem;
   border-radius: 12px;
   background: #97deff;
 }

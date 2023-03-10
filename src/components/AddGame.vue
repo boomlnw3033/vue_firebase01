@@ -1,6 +1,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../main";
 
 const gameData = ref({
@@ -51,19 +57,49 @@ onMounted(show);
       <form @submit.prevent="addGameData()">
         <h3>Form</h3>
         gameTitle :
-        <input type="text" name="" id="" v-model="gameData.gameTitle" required />
+        <input
+          type="text"
+          name=""
+          id=""
+          v-model="gameData.gameTitle"
+          required
+        />
         <br />
         gameGenre :
-        <input type="text" name="" id="" v-model="gameData.gameGenre" required />
+        <input
+          type="text"
+          name=""
+          id=""
+          v-model="gameData.gameGenre"
+          required
+        />
         <br />
         gameAddDate :
-        <input type="date" name="" id="" v-model="gameData.gameAddDate" required />
+        <input
+          type="date"
+          name=""
+          id=""
+          v-model="gameData.gameAddDate"
+          required
+        />
         <br />
         gameImage :
-        <input type="text" name="" id="" v-model="gameData.gameImage" required />
+        <input
+          type="text"
+          name=""
+          id=""
+          v-model="gameData.gameImage"
+          required
+        />
         <br />
         description :
-        <input type="text" name="" id="" v-model="gameData.description" required />
+        <input
+          type="text"
+          name=""
+          id=""
+          v-model="gameData.description"
+          required
+        />
         <br />
         <button type="submit">เพิ่มข้อมูล</button>
       </form>
@@ -90,7 +126,9 @@ onMounted(show);
         <td>{{ item.data.gameAddDate }}</td>
         <td><img :src="item.data.gameImage" alt="" width=" 50" /></td>
         <td>{{ item.data.description }}</td>
-        <td><button @click="removeData(item.id)">ลบ</button><br />{{ item.id }}</td>
+        <td>
+          <button @click="removeData(item.id)">ลบ</button><br />{{ item.id }}
+        </td>
       </tr>
     </tbody>
   </table>
